@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <!-- Моля отворете и си прочетете за планетарната система на Слънцето, скоростите на 
+    завъртане около оста и по орбитата около звездата на планетите, както и
+    големина на планетите. Част от работата като програмисти е това: да се запознавате с нова
+материя от други области колкото да можете да разберете дадена задача правилно и да съобразите изисквания
+които не са подробно описани, за да можете да си свърпшите работата, особено в 
+финтек (банкови и небанкови финансови услуги), к12 (учебна училища и извън училищна подготовка)
+и медикал+иншюранс (болници, клиники, здравно застраховане) - това са основните големи клиенти.
+
+В случая трябва да съобразите и сметнете в решението си релативната големина на планетите (почнете от 
+най-малката за да е достатъчно голяма да се вижда на екрана и  другите релативно на нея), и релативната скорост
+на движение (ос и орбита) почнете от земните 24часа/365 дни за да се смята по-лесно. 
+
+Друг пример би бил следболнична
+помощ - определяне на риска от съдов инцидент на база на измерване на пулса от смарт часовник/гривна -
+там трябва да се изчете наличните данни как следенето на пулса показва дали и кога е повишен
+риска от индицент и колко е достоверно (тоест при пулс покачен с еди си колко еди си какво значи, определяне на
+бейслайн и тн и тн - в такива по-сложни материи има и консултации със специалисти). -->
+    <head>
+        <style>
+            /* CSS */
+            /* ВНИМАНИЕ - за по-прегледно решение моля ползвайте CALC функцията в цсс -
+            https://developer.mozilla.org/en-US/docs/Web/CSS/calc() където има да се 
+            правят сметки */
+
+            /** фон: Правим го да заема целия екран/цялата налична площ и да има звезди */
+            body {
+                width: 100%;
+                height: 100%;
+                background-color: black;
+                background-image: url('cosmos.jpg');
+            }
+            /** Центрираме цлънцето и го правим кръгло и голямо */
+            #sun {
+                width: 200px;
+                height: 200px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                background-image: url("sun.png");
+                border-radius: 100%;
+                transform: translate(-50%, -50%);
+                animation: rotation 365s;
+                /** Определяме скоростта на равномерна */
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                box-shadow: 0 0 220px orange;
+            }
+            /** Указваме как се "трансформира" обекта - запазваме позицията и го въртим */
+            @keyframes rotation {
+                from {
+                    transform: translate(-50%, -50%), rotate(0deg);
+                }
+                to {
+                    transform: translate(-50%, -50%) rotate(359deg);
+                }
+            }
+            #mercury_orbit {
+                width: 320px;
+                height: 320px;
+                border: 1px solid blue;
+                border-radius: 50%;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 50%;
+                /** Съобразваме / изчисляваме скоростта на въртене около слънцето (revolution на английски
+                като го търсите, от revolve) */
+                animation: rotation 20s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+            /** Самата планета - позиционираме я първо да застава НА орбитата си ЦЕНТРИРАНА на самата орбита
+            ВНИМАНИЕ - тук НЕ е направено правилно, орбитата и планетата се разминават с един пиксел - моля да го 
+            коригирате */ 
+            #mercury {
+                width: 80px;
+                height: 80px;
+                background-image: url("mercury.png");
+                border-radius: 50%;
+                position: relative;
+                transform: translate(-50%, -50%);
+                top: 0;
+                left: 50%;
+                animation: rotation 24s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                /** Липсва въртене около оста */
+            }
+            #venus_orbit{
+                width: 500px;
+                height: 500px;
+                border: 1px solid rgba(255, 0, 0, 0.87);
+                border-radius: 50%;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 50%;
+                /** Съобразваме / изчисляваме скоростта на въртене около слънцето (revolution на английски
+                като го търсите, от revolve) */
+                animation: rotation 80s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+            #venus {
+                width: 120px;
+                height: 120px;
+                background-image: url("venus.png");
+                border-radius: 50%;
+                position: relative;
+                transform: translate(-50%, -50%);
+                top: 0%;
+                left: 50%;
+                animation: rotation 24s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+            #earth_orbit {
+                width: 700px;
+                height: 700px;
+                border: 1px solid blue;
+                border-radius: 50%;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 50%;
+                /** Съобразваме / изчисляваме скоростта на въртене около слънцето (revolution на английски
+                като го търсите, от revolve) */
+                animation: rotation 130s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+            #earth {
+                width: 100px;
+                height: 100px;
+                background-image: url("earth.png");
+                border-radius: 50%;
+                position: relative;
+                transform: translate(-50%, -50%);
+                top: 0%;
+                left: 50%;
+                animation: rotation 24s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                box-shadow: 0 0 34px #3a4385;
+            }
+            #moon_orbit{ 
+                width: 255px;
+                height: 255px;
+                border: 1px solid white;
+                border-radius: 50%;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 50%;
+                /** Съобразваме / изчисляваме скоростта на въртене около слънцето (revolution на английски
+                като го търсите, от revolve) */
+                animation: rotation 12s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;}
+            #moon{
+                width: 15px;
+                height: 15px;
+                border-color: aliceblue;
+                border-image: url("moon.png");
+                border-radius: 50%;
+                position: sticky;
+                transform: translate(-50%, -50%);
+                top: 0%;
+                left: 50%;
+                animation: rotation 24s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;}
+        </style>
+
+    </head>
+    <body>
+        <!-- Добавяме още две планети между слънцето и земята: меркурий и венера -->
+        <!-- Земя -->
+        <div id="mercury_orbit">
+            <div id="mercury"></div>
+        </div>
+        <div id="venus_orbit">
+            <div id="venus"></div>
+        </div>
+        <div id="earth_orbit">
+            <div id="moon_orbit">
+                <div id="moon"></div>
+            </div>
+            <div id="earth"></div>
+        </div>
+        <!-- Слънце -->
+        <div id="sun">
+
+        </div>
+        <!-- Бонус точки - SVG path представляващ елипса 
+        Как да конструираме елипса https://vanseodesign.com/web-design/svg-paths-curve-commands/
+        тестваме като коментираме целия друг код и работим само с SVG докато получим желаната форма! 
+        След като имаме формата анимираме кръгло тяло по нея-->
+
+        <!-- Бонус точки 2 - допълнително оформление с анимирани ефекти, опашка след кометата при ПРИБЛИЖАВАНЕ
+        до слънцето - работи се с тайминга на анимацията и кейфреймове, защото нямаме изчислителна част
+        тоест предварително трябва да сметнем кога трябва да има "опашка/glow tail" и кога тя да намалява
+        и изчезва.  -->
+
+
+    </body>
+</html>
